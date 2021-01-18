@@ -1,0 +1,35 @@
+.greeting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .wrap {
+    width: 100%;
+    text-align: center;
+
+    .name {
+      color: white;
+      font-weight: 900;
+      font-size: 50px;
+      transform: translateX(35%);
+    }
+
+    .typicalWrapper {
+      color: white;
+      font-weight: 600;
+    }
+
+    .typicalWrapper::after {
+      content: "|";
+      animation: blink 1s infinite step-start;
+    }
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
