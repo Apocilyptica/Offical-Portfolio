@@ -6,6 +6,7 @@ import MainLayout from "./layouts/MainLayout";
 
 // pages
 import LandingPage from "./pages/LandingPage";
+import HomePage from "./pages/HomePage";
 
 // default styles
 import "./default.scss";
@@ -20,6 +21,14 @@ function App() {
           render={() => (
             <MainLayout>
               <LandingPage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/home"
+          render={() => (
+            <MainLayout>
+              <HomePage />
             </MainLayout>
           )}
         />

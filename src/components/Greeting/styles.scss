@@ -4,6 +4,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  background: rgba(20, 20, 20, 0.3);
 
   .wrap {
     width: 100%;
@@ -25,11 +26,62 @@
       content: "|";
       animation: blink 1s infinite step-start;
     }
+
+    .btn {
+      background: rgba(20, 20, 20, 0.3);
+      margin-top: 2rem;
+      width: fit-content;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: 1;
+      -webkit-animation-iteration-count: 1;
+
+      &:hover {
+        background: rgba(20, 20, 20, 0.5);
+        animation-name: bounce;
+        -moz-animation-name: bounce;
+      }
+    }
   }
 }
 
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    -webkit-transform: translateY(2px);
+    -ms-transform: translateY(2px);
+    transform: translateY(2px);
+  }
+  40% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  60% {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes exit {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
   }
 }
