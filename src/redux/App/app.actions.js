@@ -13,3 +13,13 @@ export const setItems = (items) => ({
   type: appTypes.SET_ITEMS,
   payload: items,
 });
+
+export const setTrash = (trashItems) => ({
+  type: appTypes.SET_TRASH,
+  payload: trashItems,
+});
+
+export const setTrashIcon = (result) => ({
+  type: appTypes.SET_TRASH_ICON,
+  payload: result,
+});
