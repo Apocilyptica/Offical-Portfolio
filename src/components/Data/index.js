@@ -32,12 +32,15 @@ export const ExternalLinks = [
 export const DefaultHomePageItems = [
   {
     id: "id-1",
-    title: "Trash",
+    title: "Recycle Bin",
     URL: "/trashcan",
     icon: EmptyTrashIcon,
     alt: "trashcan",
     component: Trashcan,
     isFocus: "",
+    itemType: "Application",
+    dateModified: "2021-01-21T21:14:00.843Z",
+    size: "2,191 KB",
   },
   {
     id: "id-2",
@@ -47,6 +50,9 @@ export const DefaultHomePageItems = [
     alt: "launch",
     component: null,
     isFocus: "",
+    itemType: "Shortcut",
+    dateModified: "2021-01-21T21:14:00.843Z",
+    size: "1 KB",
   },
   {
     id: "id-3",
@@ -56,6 +62,9 @@ export const DefaultHomePageItems = [
     alt: "notepad",
     component: Notepad,
     isFocus: "",
+    itemType: "Text Document",
+    dateModified: "2021-01-10T20:12:01.215Z",
+    size: "1 KB",
   },
   {
     id: "id-4",
@@ -65,6 +74,9 @@ export const DefaultHomePageItems = [
     alt: "vscode",
     component: VSCode,
     isFocus: "",
+    itemType: "Application",
+    dateModified: "2020-09-21T14:10:52.627Z",
+    size: "629 MB",
   },
   {
     id: "id-5",
@@ -74,6 +86,9 @@ export const DefaultHomePageItems = [
     alt: "fileExplorer",
     component: FileExplorer,
     isFocus: "",
+    itemType: "File folder",
+    dateModified: new Date(),
+    size: "0 KB",
   },
   {
     id: "id-6",
@@ -83,5 +98,8 @@ export const DefaultHomePageItems = [
     alt: "google",
     component: Google,
     isFocus: "",
+    itemType: "Shortcut",
+    dateModified: "2020-12-02T21:14:00.843Z",
+    size: "1 KB",
   },
 ];

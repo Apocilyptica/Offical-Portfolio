@@ -20,13 +20,34 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getItemStyle = (isDragging, draggingOver, draggableStyle, item, trash) => ({
-  backgroundColor: isDragging && item !== "id-1" ? (draggingOver ? "lightgreen" : "red") : item === "id-1" && trash ? "lightgreen" : null,
-  transition: "background-color 1s ease",
-  ...draggableStyle,
-});
+const getItemStyle = (isDragging, draggingOver, isDropAnimating, draggableStyle, item, trash, snapshot, index, items) => {
+  if (!isDropAnimating) {
+    return {
+      backgroundColor: isDragging && item !== "id-1" ? (draggingOver ? "lightgreen" : "red") : item === "id-1" && trash ? "lightgreen" : null,
+      transition: "background-color 1s ease",
+      ...draggableStyle,
+    };
+  }
+  const indexOfTrash = items.findIndex((item) => item.id === "id-1");
 
-function ItemApp(props) {
+  console.log(indexOfTrash);
+  const { moveTo, curve, duration } = snapshot.dropAnimation;
+  const translate = `translate(${moveTo.x}px, ${moveTo.y - (index - indexOfTrash) * 100}px)`;
+  const rotate = "rotate(0.5turn)";
+
+  if (!draggingOver && item !== "id-1") {
+    return {
+      ...draggableStyle,
+      transform: `${translate} ${rotate}`,
+      // slowing down the drop because we can
+      transition: `all ${curve} ${duration + 1}s`,
+    };
+  }
+
+  return { ...draggableStyle };
+};
+
+function ItemApp() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { items, trash } = useSelector(mapState);
@@ -93,7 +114,7 @@ function ItemApp(props) {
     <div className="dragAndDrop" ref={wrapperRef}>
       <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate} onDragStart={onDragStart}>
         <Droppable droppableId="list">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -105,7 +126,17 @@ function ItemApp(props) {
                       {...provided.dragHandleProps}
                       onClick={(e) => handleClick(item)}
                       onDoubleClick={(e) => handleDoubleClick(item.URL)}
-                      style={getItemStyle(snapshot.isDragging, snapshot.draggingOver, provided.draggableProps.style, item.id, trash.isTrash)}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        snapshot.draggingOver,
+                        snapshot.isDropAnimating,
+                        provided.draggableProps.style,
+                        item.id,
+                        trash.isTrash,
+                        snapshot,
+                        index,
+                        items
+                      )}
                     >
                       <img src={item.icon} alt={item.alt} className={`image ${item.isFocus}`} />
                       <span className={`title ${item.isFocus}`}>{item.title}</span>
