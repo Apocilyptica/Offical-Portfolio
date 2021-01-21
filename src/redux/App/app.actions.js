@@ -9,6 +9,10 @@ export const setFocus = (itemID) => ({
   payload: itemID,
 });
 
+export const setFocusReset = () => ({
+  type: appTypes.SET_FOCUS_RESET,
+});
+
 export const setItems = (items) => ({
   type: appTypes.SET_ITEMS,
   payload: items,

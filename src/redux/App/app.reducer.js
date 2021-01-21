@@ -1,6 +1,6 @@
 import appTypes from "./app.types";
 import { DefaultHomePageItems } from "../../components/Data";
-import { handleSetFocus, handleSetTrash, handleSetTrashIcon } from "./app.utils";
+import { handleSetFocus, handleSetTrash, handleSetTrashIcon, handleSetFocusReset } from "./app.utils";
 
 const INITIAL_STATE = {
   items: DefaultHomePageItems,
@@ -13,11 +13,13 @@ const appReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...INITIAL_STATE,
       };
+
     case appTypes.SET_ITEMS:
       return {
         ...state,
         items: action.payload,
       };
+
     case appTypes.SET_FOCUS:
       return {
         ...state,
@@ -26,6 +28,15 @@ const appReducer = (state = INITIAL_STATE, action) => {
           itemToSetFocus: action.payload,
         }),
       };
+
+    case appTypes.SET_FOCUS_RESET:
+      return {
+        ...state,
+        items: handleSetFocusReset({
+          prevItems: state.items,
+        }),
+      };
+
     case appTypes.SET_TRASH:
       return {
         ...state,
@@ -34,6 +45,7 @@ const appReducer = (state = INITIAL_STATE, action) => {
           trashItem: action.payload,
         }),
       };
+
     case appTypes.SET_TRASH_ICON:
       return {
         ...state,
@@ -42,6 +54,7 @@ const appReducer = (state = INITIAL_STATE, action) => {
           isTrash: action.payload,
         }),
       };
+
     default:
       return state;
   }

@@ -16,6 +16,15 @@ export const handleSetFocus = ({ prevItems, itemToSetFocus }) => {
   );
 };
 
+export const handleSetFocusReset = ({ prevItems }) => {
+  return prevItems.map((item) => {
+    return {
+      ...item,
+      isFocus: "",
+    };
+  });
+};
+
 export const existingTrashItem = ({ prevItems, trashItem }) => {
   return prevItems.find((item) => item.id === trashItem.draggableId && item.id !== "id-1");
 };

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { setDefaultItems, setFocus, setItems, setTrash, setTrashIcon } from "../../redux/App/app.actions";
+import { setDefaultItems, setFocus, setFocusReset, setItems, setTrash, setTrashIcon } from "../../redux/App/app.actions";
 import { setTrashActive, setTrashInactive, setTrashItem } from "../../redux/Trash/trash.actions";
 
 import "./styles.scss";
@@ -26,7 +26,7 @@ const getItemStyle = (isDragging, draggingOver, draggableStyle, item, trash) => 
   ...draggableStyle,
 });
 
-function ItemApp() {
+function ItemApp(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { items, trash } = useSelector(mapState);
@@ -35,6 +35,24 @@ function ItemApp() {
     dispatch(setDefaultItems());
     // eslint-disable-next-line
   }, []);
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          dispatch(setFocusReset());
+        }
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   const handleDoubleClick = (e) => {
     history.push(e);
@@ -49,7 +67,7 @@ function ItemApp() {
       dispatch(setTrashInactive());
       dispatch(setTrashItem(result));
       dispatch(setTrash(result));
-      dispatch(setTrashIcon(result));
+      dispatch(setTrashIcon(items));
       return;
     }
 
@@ -67,7 +85,7 @@ function ItemApp() {
   };
 
   return (
-    <div className="dragAndDrop">
+    <div className="dragAndDrop" ref={wrapperRef}>
       <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
         <Droppable droppableId="list">
           {(provided, snapshot) => (
