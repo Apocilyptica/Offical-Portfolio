@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import FooterLinks from "../Animations/FooterLinks";
 
 import Typing from "../Animations/Typing";
-import { ExternalLinks } from "../Helpers";
+import { ExternalLinks } from "../Data";
 import "./styles.scss";
 
 const Footer = () => {

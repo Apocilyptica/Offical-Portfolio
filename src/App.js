@@ -32,6 +32,46 @@ function App() {
             </MainLayout>
           )}
         />
+        <Route
+          path="/trashcan"
+          render={() => (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/readme"
+          render={() => (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/aboutme"
+          render={() => (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/projects"
+          render={() => (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/google"
+          render={() => (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          )}
+        />
       </Switch>
     </div>
   );

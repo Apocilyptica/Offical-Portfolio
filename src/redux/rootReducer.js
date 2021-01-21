@@ -2,7 +2,11 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-export const rootReducer = combineReducers({});
+import appReducer from "./App/app.reducer";
+
+export const rootReducer = combineReducers({
+  apps: appReducer,
+});
 
 const configStorage = {
   key: "root",

@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { HomePageItems } from "../Helpers";
+import { setDefaultItems, setFocus, setItems } from "../../redux/App/app.actions";
+
 import "./styles.scss";
 
-const initial = HomePageItems;
+const mapState = ({ apps }) => ({
+  items: apps.items,
+});
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -19,38 +23,23 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-function Item({ item, index }) {
+function ItemApp() {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const { items } = useSelector(mapState);
 
-  const handleClick = (e) => {
+  useEffect(() => {
+    dispatch(setDefaultItems());
+    // eslint-disable-next-line
+  }, []);
+
+  const handleDoubleClick = (e) => {
     history.push(e);
   };
 
-  return (
-    <Draggable draggableId={item.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          className="item"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          onDoubleClick={(e) => handleClick(item.URL)}
-          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-        >
-          <img src={item.icon} alt={item.alt} />
-          {item.content}
-        </div>
-      )}
-    </Draggable>
-  );
-}
-
-const ItemList = React.memo(function ItemList({ items }) {
-  return items.map((item, index) => <Item item={item} index={index} key={item.id} />);
-});
-
-function ItemApp() {
-  const [state, setState] = useState({ items: initial });
+  const handleClick = (e) => {
+    dispatch(setFocus(e));
+  };
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -61,22 +50,41 @@ function ItemApp() {
       return;
     }
 
-    const items = reorder(state.items, result.source.index, result.destination.index);
+    const updatedItems = reorder(items, result.source.index, result.destination.index);
 
-    setState({ items });
+    dispatch(setItems(updatedItems));
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="list">
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <ItemList items={state.items} />
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <div className="dragAndDrop">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="list">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      className="item"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      onClick={(e) => handleClick(item)}
+                      onDoubleClick={(e) => handleDoubleClick(item.URL)}
+                      style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                    >
+                      <img src={item.icon} alt={item.alt} className={`image ${item.isFocus}`} />
+                      <span className={`title ${item.isFocus}`}>{item.title}</span>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 }
 

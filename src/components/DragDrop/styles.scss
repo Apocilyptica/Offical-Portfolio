@@ -1,11 +1,24 @@
-.item {
-  width: 15rem;
-  margin-bottom: 0.8rem;
-  padding: 0.8rem;
-  color: white;
-  text-align: center;
+.dragAndDrop {
+  width: 8rem;
 
-  img {
+  .item {
     width: 10rem;
+    margin-bottom: 0.8rem;
+    padding: 1.2rem;
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+
+    .isFocus.title {
+      background-color: blue;
+    }
+
+    .isFocus.image {
+      filter: hue-rotate(180deg);
+    }
+
+    img {
+      width: 5rem;
+    }
   }
 }
