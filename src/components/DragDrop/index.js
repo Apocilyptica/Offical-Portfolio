@@ -36,7 +36,7 @@ function ItemApp(props) {
     // eslint-disable-next-line
   }, []);
 
-  const useOutsideAlerter = (ref) => {
+  const useOutsideClick = (ref) => {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -52,7 +52,7 @@ function ItemApp(props) {
   };
 
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  useOutsideClick(wrapperRef);
 
   const handleDoubleClick = (e) => {
     history.push(e);
@@ -68,6 +68,7 @@ function ItemApp(props) {
       dispatch(setTrashItem(result));
       dispatch(setTrash(result));
       dispatch(setTrashIcon(items));
+
       return;
     }
 
@@ -84,9 +85,13 @@ function ItemApp(props) {
     !result.destination ? dispatch(setTrashActive()) : dispatch(setTrashInactive());
   };
 
+  const onDragStart = () => {
+    dispatch(setFocusReset());
+  };
+
   return (
     <div className="dragAndDrop" ref={wrapperRef}>
-      <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+      <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate} onDragStart={onDragStart}>
         <Droppable droppableId="list">
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
