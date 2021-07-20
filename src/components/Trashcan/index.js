@@ -1,8 +1,9 @@
 import React from "react";
+import "./styles.scss";
 
 const Trashcan = () => {
   return (
-    <div>
+    <div className="recycleBin">
       <h1>Trashcan</h1>
     </div>
   );

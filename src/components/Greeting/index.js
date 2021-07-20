@@ -9,7 +9,7 @@ const Greeting = () => {
   const [styles, setStyles] = useState("");
 
   const typicalConfig = {
-    text: "Driven, Motivated, and Intuitive Software Development",
+    text: "Driven, Motivated, and Intuitive Frontend Development",
     time: 50,
     backspace: 0,
   };

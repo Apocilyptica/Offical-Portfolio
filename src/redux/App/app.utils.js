@@ -49,3 +49,25 @@ export const handleSetTrashIcon = ({ currentItems, isTrash }) => {
       : item
   );
 };
+
+export const handleSetActive = ({ prevItems, itemToActive }) => {
+  return prevItems.map((item) =>
+    item.id === itemToActive.id && item.id !== "id-2"
+      ? {
+          ...item,
+          isActive: true,
+        }
+      : item
+  );
+};
+
+export const handleSetInactive = ({ prevItems, itemToActive }) => {
+  return prevItems.map((item) =>
+    item.id === itemToActive.id && item.id !== "id-2"
+      ? {
+          ...item,
+          isActive: false,
+        }
+      : item
+  );
+};

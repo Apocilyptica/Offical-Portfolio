@@ -5,6 +5,8 @@ const appTypes = {
   SET_FOCUS_RESET: "SET_FOCUS_RESET",
   SET_TRASH: "SET_TRASH",
   SET_TRASH_ICON: "SET_TRASH_ICON",
+  SET_APP_ACTIVE: "SET_APP_ACTIVE",
+  SET_APP_INACTIVE: "SET_APP_INACTIVE",
 };
 
 export default appTypes;

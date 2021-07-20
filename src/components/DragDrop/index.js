@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { setDefaultItems, setFocus, setFocusReset, setItems, setTrash, setTrashIcon } from "../../redux/App/app.actions";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { setAppActive, setDefaultItems, setFocus, setFocusReset, setItems, setTrash, setTrashIcon } from "../../redux/App/app.actions";
+import { setAppActiveSettings } from "../../redux/Active/active.actions";
 import { setTrashActive, setTrashInactive, setTrashItem } from "../../redux/Trash/trash.actions";
 
+// Default App Setting Data
+import { defaultAppSettings } from "../Data";
+
+// Styles
 import "./styles.scss";
 
 const mapState = ({ apps, trash }) => ({
@@ -30,7 +37,6 @@ const getItemStyle = (isDragging, draggingOver, isDropAnimating, draggableStyle,
   }
   const indexOfTrash = items.findIndex((item) => item.id === "id-1");
 
-  console.log(indexOfTrash);
   const { moveTo, curve, duration } = snapshot.dropAnimation;
   const translate = `translate(${moveTo.x}px, ${moveTo.y - (index - indexOfTrash) * 100}px)`;
   const rotate = "rotate(0.5turn)";
@@ -47,7 +53,7 @@ const getItemStyle = (isDragging, draggingOver, isDropAnimating, draggableStyle,
   return { ...draggableStyle };
 };
 
-function ItemApp() {
+const ItemApp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { items, trash } = useSelector(mapState);
@@ -75,8 +81,10 @@ function ItemApp() {
   const wrapperRef = useRef(null);
   useOutsideClick(wrapperRef);
 
-  const handleDoubleClick = (e) => {
-    history.push(e);
+  const handleDoubleClick = (app) => {
+    dispatch(setAppActive(app));
+    dispatch(setAppActiveSettings({ appName: app.appName, appSettings: defaultAppSettings[app.appName] }));
+    history.push(app.URL);
   };
 
   const handleClick = (e) => {
@@ -125,7 +133,7 @@ function ItemApp() {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       onClick={(e) => handleClick(item)}
-                      onDoubleClick={(e) => handleDoubleClick(item.URL)}
+                      onDoubleClick={() => handleDoubleClick(item)}
                       style={getItemStyle(
                         snapshot.isDragging,
                         snapshot.draggingOver,
@@ -151,6 +159,6 @@ function ItemApp() {
       </DragDropContext>
     </div>
   );
-}
+};
 
 export default ItemApp;

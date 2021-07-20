@@ -27,3 +27,13 @@ export const setTrashIcon = (result) => ({
   type: appTypes.SET_TRASH_ICON,
   payload: result,
 });
+
+export const setAppActive = (item) => ({
+  type: appTypes.SET_APP_ACTIVE,
+  payload: item,
+});
+
+export const setAppInactive = (item) => ({
+  type: appTypes.SET_APP_INACTIVE,
+  payload: item,
+});

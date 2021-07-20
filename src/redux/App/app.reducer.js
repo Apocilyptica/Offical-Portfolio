@@ -1,6 +1,6 @@
 import appTypes from "./app.types";
 import { DefaultHomePageItems } from "../../components/Data";
-import { handleSetFocus, handleSetTrash, handleSetTrashIcon, handleSetFocusReset } from "./app.utils";
+import { handleSetFocus, handleSetTrash, handleSetTrashIcon, handleSetFocusReset, handleSetActive, handleSetInactive } from "./app.utils";
 
 const INITIAL_STATE = {
   items: DefaultHomePageItems,
@@ -54,7 +54,22 @@ const appReducer = (state = INITIAL_STATE, action) => {
           isTrash: action.payload,
         }),
       };
-
+    case appTypes.SET_APP_ACTIVE:
+      return {
+        ...state,
+        items: handleSetActive({
+          prevItems: state.items,
+          itemToActive: action.payload,
+        }),
+      };
+    case appTypes.SET_APP_INACTIVE:
+      return {
+        ...state,
+        items: handleSetInactive({
+          prevItems: state.items,
+          itemToActive: action.payload,
+        }),
+      };
     default:
       return state;
   }

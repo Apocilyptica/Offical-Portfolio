@@ -25,12 +25,22 @@
       .iconWrapper {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      }
+
+      .iconWrapper img {
+        max-width: 100%;
+        max-height: 100%;
       }
 
       .icons {
         position: relative;
         height: 4rem;
         width: 4rem;
+        cursor: pointer;
 
         &:hover {
           background-color: #3b3938;
@@ -44,9 +54,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          position: absolute;
-          height: 100%;
-          width: 100%;
           animation: move linear 1s 1 alternate;
         }
       }

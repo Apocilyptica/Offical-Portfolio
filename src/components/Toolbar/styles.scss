@@ -1,0 +1,25 @@
+.dragAndDrop {
+  width: 8rem;
+
+  .item {
+    transition: background-color 1s ease;
+    width: 10rem;
+    margin-bottom: 0.8rem;
+    padding: 1.2rem;
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+
+    .isFocus.title {
+      background-color: blue;
+    }
+
+    .isFocus.image {
+      filter: hue-rotate(180deg);
+    }
+
+    img {
+      width: 5rem;
+    }
+  }
+}
