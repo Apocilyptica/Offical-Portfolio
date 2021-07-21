@@ -41,7 +41,7 @@ export const ExternalLinks = [
 export const DefaultHomePageItems = [
   {
     id: "id-1",
-    appName: "recycleBin",
+    appName: "trashcan",
     title: "Recycle Bin",
     URL: "/trashcan",
     icon: EmptyTrashIcon,
@@ -129,7 +129,7 @@ export const defaultAppSettings = {
   notepad: {
     header: {
       title: "Untitled - Notepad",
-      icon: notepadIconSmall,
+      icon: NotepadIcon,
     },
     footer: {
       alt: "notpad",
@@ -143,7 +143,7 @@ export const defaultAppSettings = {
       height: 750,
     },
     defaultOffset: {
-      x: 200,
+      x: 50,
       y: 50,
     },
     resizable: true,
@@ -160,7 +160,7 @@ export const defaultAppSettings = {
     },
     footer: {
       icon: GoogleIcon,
-      URL: "/readme",
+      URL: "/google",
       isFocus: true,
     },
     component: <Google />,
@@ -170,7 +170,7 @@ export const defaultAppSettings = {
     },
     defaultOffset: {
       x: 100,
-      y: 50,
+      y: 100,
     },
     resizable: true,
     minimized: false,
@@ -179,10 +179,15 @@ export const defaultAppSettings = {
     zIndex: 0,
     isActive: false,
   },
-  recycleBin: {
+  trashcan: {
     header: {
       title: "Recycle Bin",
-      icon: notepadIconSmall,
+      icon: EmptyTrashIcon,
+    },
+    footer: {
+      icon: EmptyTrashIcon,
+      URL: "/trashcan",
+      isFocus: true,
     },
     component: <Trashcan />,
     defaultSize: {
@@ -190,8 +195,8 @@ export const defaultAppSettings = {
       height: 750,
     },
     defaultOffset: {
-      x: 100,
-      y: 50,
+      x: 150,
+      y: 150,
     },
     resizable: true,
     minimized: false,
@@ -203,7 +208,12 @@ export const defaultAppSettings = {
   vscode: {
     header: {
       title: "VSCode",
-      icon: notepadIconSmall,
+      icon: VSCodeIcon,
+    },
+    footer: {
+      icon: VSCodeIcon,
+      URL: "/aboutme",
+      isFocus: true,
     },
     component: <VSCode />,
     defaultSize: {
@@ -211,8 +221,8 @@ export const defaultAppSettings = {
       height: 750,
     },
     defaultOffset: {
-      x: 100,
-      y: 50,
+      x: 200,
+      y: 200,
     },
     resizable: true,
     minimized: false,
@@ -224,7 +234,12 @@ export const defaultAppSettings = {
   fileExplorer: {
     header: {
       title: "File Explorer",
-      icon: notepadIconSmall,
+      icon: FileExplorerIcon,
+    },
+    footer: {
+      icon: FileExplorerIcon,
+      URL: "/projects",
+      isFocus: true,
     },
     component: <FileExplorer />,
     defaultSize: {
@@ -232,8 +247,8 @@ export const defaultAppSettings = {
       height: 750,
     },
     defaultOffset: {
-      x: 100,
-      y: 50,
+      x: 250,
+      y: 250,
     },
     resizable: true,
     minimized: false,

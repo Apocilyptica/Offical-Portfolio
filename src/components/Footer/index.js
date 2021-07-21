@@ -59,7 +59,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer">
+    <div id="footer" className="footer">
       <div className="wrap">
         <div className="items">
           <Grid container {...gridConfig}>

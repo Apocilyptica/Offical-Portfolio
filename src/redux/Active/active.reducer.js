@@ -1,6 +1,6 @@
 import activeTypes from "./active.types";
 
-import { handleRemoveApp, handleUpdateStyle } from "./active.utils";
+import { handleRemoveApp, handleUpdateStyle, handleUpdateZIndex, handleUpdateOffset, handleUpdateMaximize } from "./active.utils";
 
 const INITIAL_STATE = {
   activeAppSettings: {},
@@ -31,6 +31,36 @@ const activeReducer = (state = INITIAL_STATE, action) => {
           prevItems: state.activeAppSettings,
           itemToRemove: action.payload,
         }),
+      };
+
+    case activeTypes.UPDATE_APP_ACTIVE_ZINDEX:
+      return {
+        ...state,
+        activeAppSettings: {
+          ...state.activeAppSettings,
+          [action.payload.appName]: handleUpdateZIndex({ prevItems: action.payload.appSettings, zIndex: state.nextZIndex }),
+        },
+        nextZIndex: state.nextZIndex + 1,
+      };
+    case activeTypes.UPDATE_APP_ACTIVE_OFFSET:
+      return {
+        ...state,
+        activeAppSettings: {
+          ...state.activeAppSettings,
+          [action.payload.appName]: handleUpdateOffset({ prevItems: action.payload.appSettings, newOffset: action.payload.newOffset }),
+        },
+      };
+    case activeTypes.UPDATE_APP_ACTIVE_MAXIMIZE:
+      return {
+        ...state,
+        activeAppSettings: {
+          ...state.activeAppSettings,
+          [action.payload.appName]: handleUpdateMaximize({
+            prevItems: action.payload.appSettings,
+            newSize: action.payload.newSize,
+            defaultSettings: action.payload.defaultSettings,
+          }),
+        },
       };
     case activeTypes.UPDATE_APP_ACTIVE_SETTINGS:
       return {
